@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 
 @Entity
 @Table(name = "finances_user")
@@ -34,8 +35,9 @@ public class User {
 	
 	private String createdBy;
 	
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "user_id")
 	public Long getUserID() {
 		return userID;
@@ -92,7 +94,7 @@ public class User {
 		this.lastUpdatedBy = lastUpdatedBy;
 	}
 	
-	@Column(name = "created_date")
+	@Column(name = "created_date", updatable = false)
 	public Date getCreatedDate() {
 		return createdDate;
 	}
@@ -100,7 +102,7 @@ public class User {
 		this.createdDate = createdDate;
 	}
 	
-	@Column(name = "created_by")
+	@Column(name = "created_by", updatable = false)
 	public String getCreatedBy() {
 		return createdBy;
 	}

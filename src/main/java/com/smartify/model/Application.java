@@ -13,12 +13,12 @@ public class Application {
 		
 		User user = new User();
 		user.setBirthDate(new Date());
-		user.setCreatedBy("John Doe");
+		user.setCreatedBy("Jane Doe");
 		user.setCreatedDate(new Date());
-		user.setEmailAddress("user@user.com");
-		user.setFirstName("User");
-		user.setLastname("TestUser");
-		user.setLastUpdatedBy("John Doe");
+		user.setEmailAddress("test@user.com");
+		user.setFirstName("Test");
+		user.setLastname("User");
+		user.setLastUpdatedBy("Jane Doe");
 		user.setLastUpdatedDate(new Date());
 		
 		session.save(user);

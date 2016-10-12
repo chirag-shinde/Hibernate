@@ -13,83 +13,91 @@ import javax.persistence.Table;
 @Table(name = "finances_user")
 public class User {
 	
+	private Long userID;
+	
+	private String firstName;
+	
+	private String lastname;
+	
+	private Date birthDate;
+	
+	private String emailAddress;
+	
+	private Date lastUpdatedDate;
+	
+	private String lastUpdatedBy;
+	
+	private Date createdDate;
+	
+	private String createdBy;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "user_id")
-	private Long userID;
-	
-	@Column(name = "first_name")
-	private String firstName;
-	
-	@Column(name = "last_name")
-	private String lastname;
-	
-	@Column(name = "birth_date")
-	private Date birthDate;
-	
-	@Column(name = "email_address")
-	private String emailAddress;
-	
-	@Column(name = "last_updated_date")
-	private Date lastUpdatedDate;
-	
-	@Column(name = "last_updated_by")
-	private String lastUpdatedBy;
-	
-	@Column(name = "created_date")
-	private Date createdDate;
-	
-	@Column(name = "created_by")
-	private String createdBy;
-	
 	public Long getUserID() {
 		return userID;
 	}
 	public void setUserID(Long userID) {
 		this.userID = userID;
 	}
+	
+	@Column(name = "first_name")
 	public String getFirstName() {
 		return firstName;
 	}
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
+	
+	@Column(name = "last_name")
 	public String getLastname() {
 		return lastname;
 	}
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
 	}
+	
+	@Column(name = "birth_date")
 	public Date getBirthDate() {
 		return birthDate;
 	}
 	public void setBirthDate(Date birthDate) {
 		this.birthDate = birthDate;
 	}
+	
+	@Column(name = "email_address")
 	public String getEmailAddress() {
 		return emailAddress;
 	}
 	public void setEmailAddress(String emailAddress) {
 		this.emailAddress = emailAddress;
 	}
+	
+	@Column(name = "last_updated_date")
 	public Date getLastUpdatedDate() {
 		return lastUpdatedDate;
 	}
 	public void setLastUpdatedDate(Date lastUpdatedDate) {
 		this.lastUpdatedDate = lastUpdatedDate;
 	}
+	
+	@Column(name = "last_updated_by")
 	public String getLastUpdatedBy() {
 		return lastUpdatedBy;
 	}
 	public void setLastUpdatedBy(String lastUpdatedBy) {
 		this.lastUpdatedBy = lastUpdatedBy;
 	}
+	
+	@Column(name = "created_date")
 	public Date getCreatedDate() {
 		return createdDate;
 	}
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
 	}
+	
+	@Column(name = "created_by")
 	public String getCreatedBy() {
 		return createdBy;
 	}

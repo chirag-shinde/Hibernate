@@ -2,23 +2,44 @@ package com.smartify.model.entities;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "finances_user")
 public class User {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "user_id")
 	private Long userID;
 	
+	@Column(name = "first_name")
 	private String firstName;
 	
+	@Column(name = "last_name")
 	private String lastname;
 	
+	@Column(name = "birth_date")
 	private Date birthDate;
 	
+	@Column(name = "email_address")
 	private String emailAddress;
 	
+	@Column(name = "last_updated_date")
 	private Date lastUpdatedDate;
 	
+	@Column(name = "last_updated_by")
 	private String lastUpdatedBy;
 	
+	@Column(name = "created_date")
 	private Date createdDate;
 	
+	@Column(name = "created_by")
 	private String createdBy;
 	
 	public Long getUserID() {

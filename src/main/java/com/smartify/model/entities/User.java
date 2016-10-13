@@ -16,6 +16,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -33,6 +34,8 @@ public class User {
 	private String lastname;		//Basic Value Type
 
 	private List<Address> address = new ArrayList<>();
+	
+	private Credential credential;
 	
 	private Date birthDate;			
 	
@@ -150,4 +153,13 @@ public class User {
 	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
 	}
+	
+	@OneToOne(mappedBy = "user")
+	public Credential getCredential() {
+		return credential;
+	}
+	public void setCredential(Credential credential) {
+		this.credential = credential;
+	}
+	
 }

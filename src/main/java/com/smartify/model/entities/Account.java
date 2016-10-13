@@ -1,17 +1,28 @@
 package com.smartify.model.entities;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "account")
 public class Account {
 
 	private Long accountId;
 
-	private Bank bank;
-
-	private AccountType accountType;
-
 	private String name;
+	
+	private List<Transaction> transactions = new ArrayList<>();
 
 	private BigDecimal initialBalance;
 
@@ -28,7 +39,10 @@ public class Account {
 	private Date createdDate;
 
 	private String createdBy;
-
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name ="account_id")
 	public Long getAccountId() {
 		return accountId;
 	}
@@ -36,23 +50,19 @@ public class Account {
 	public void setAccountId(Long accountId) {
 		this.accountId = accountId;
 	}
-
-	public Bank getBank() {
-		return bank;
+	
+	
+	@OneToMany(cascade=CascadeType.ALL , mappedBy = "account")
+	public List<Transaction> getTransactions() {
+		return transactions;
 	}
 
-	public void setBank(Bank bank) {
-		this.bank = bank;
+	public void setTransactions(List<Transaction> transactions) {
+		this.transactions = transactions;
 	}
 
-	public AccountType getAccountType() {
-		return accountType;
-	}
-
-	public void setAccountType(AccountType accountType) {
-		this.accountType = accountType;
-	}
-
+	
+	@Column(name = "name")
 	public String getName() {
 		return name;
 	}
@@ -60,7 +70,8 @@ public class Account {
 	public void setName(String name) {
 		this.name = name;
 	}
-
+	
+	@Column(name = "initial_balance")
 	public BigDecimal getInitialBalance() {
 		return initialBalance;
 	}
@@ -68,7 +79,8 @@ public class Account {
 	public void setInitialBalance(BigDecimal initialBalance) {
 		this.initialBalance = initialBalance;
 	}
-
+	
+	@Column(name = "current_balance")
 	public BigDecimal getCurrentBalance() {
 		return currentBalance;
 	}
@@ -76,7 +88,8 @@ public class Account {
 	public void setCurrentBalance(BigDecimal currentBalance) {
 		this.currentBalance = currentBalance;
 	}
-
+	
+	@Column(name = "open_date")
 	public Date getOpenDate() {
 		return openDate;
 	}
@@ -84,7 +97,8 @@ public class Account {
 	public void setOpenDate(Date openDate) {
 		this.openDate = openDate;
 	}
-
+	
+	@Column(name = "close_date")
 	public Date getCloseDate() {
 		return closeDate;
 	}
@@ -92,7 +106,8 @@ public class Account {
 	public void setCloseDate(Date closeDate) {
 		this.closeDate = closeDate;
 	}
-
+	
+	@Column(name = "last_updated_date")
 	public Date getLastUpdatedDate() {
 		return lastUpdatedDate;
 	}
@@ -100,7 +115,8 @@ public class Account {
 	public void setLastUpdatedDate(Date lastUpdatedDate) {
 		this.lastUpdatedDate = lastUpdatedDate;
 	}
-
+	
+	@Column(name = "last_updated_by")
 	public String getLastUpdatedBy() {
 		return lastUpdatedBy;
 	}
@@ -108,7 +124,8 @@ public class Account {
 	public void setLastUpdatedBy(String lastUpdatedBy) {
 		this.lastUpdatedBy = lastUpdatedBy;
 	}
-
+	
+	@Column(name = "created_date")
 	public Date getCreatedDate() {
 		return createdDate;
 	}
@@ -116,11 +133,12 @@ public class Account {
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
 	}
-
+	
+	@Column(name = "created_by")
 	public String getCreatedBy() {
 		return createdBy;
 	}
-
+	
 	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
 	}

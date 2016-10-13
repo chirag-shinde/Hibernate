@@ -1,12 +1,13 @@
 package com.smartify.model;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
-import com.smartify.model.entities.Address;
-import com.smartify.model.entities.User;
+import com.smartify.model.entities.Account;
+import com.smartify.model.entities.Transaction;
 
 public class Application {
 	public static void main(String[] args) {
@@ -14,38 +15,53 @@ public class Application {
 
 			session.beginTransaction();
 			
-			User user = new User();
+			Transaction beltPurchase = new Transaction();
+			Transaction shoePurchase = new Transaction();
 			
-			user.setAge(23);
-			user.setBirthDate(new Date());
-			user.setCreatedBy("Test");
-			user.setCreatedDate(new Date());
-			user.setEmailAddress("emailaddress");
-			user.setFirstName("Sachin");
-			user.setLastname("Sachya");
-			user.setLastUpdatedBy("Sachya");
-			user.setLastUpdatedDate(new Date());
-			user.setValid(true);
 			
-			Address address = new Address();
-			address.setAddressLine1("Sachin road");
-			address.setAddressLine2("Sachin galli");
-			address.setCity("Sachin Nagar");
-			address.setState("SP");
-			address.setZipCode("12345");
+			Account account = new Account();
+			account.setCloseDate(new Date());
+			account.setOpenDate(new Date());
+			account.setCreatedBy("Kevin Bowersox");
+			account.setInitialBalance(new BigDecimal("50.00"));
+			account.setName("Savings Account");
+			account.setCurrentBalance(new BigDecimal("100.00"));
+			account.setLastUpdatedBy("Kevin Bowersox");
+			account.setLastUpdatedDate(new Date());
+			account.setCreatedDate(new Date());
 			
-			Address address1 = new Address();
-			address1.setAddressLine1("Sachi road");
-			address1.setAddressLine2("Sachin gali");
-			address1.setCity("SachinNagar");
-			address1.setState("SA");
-			address1.setZipCode("23451");
+			beltPurchase.setTitle("Dress Belt");
+			beltPurchase.setAmount(new BigDecimal("50.00"));
+			beltPurchase.setClosingBalance(new BigDecimal("0.00"));
+			beltPurchase.setCreatedBy("Kevin Bowersox");
+			beltPurchase.setCreatedDate(new Date());
+			beltPurchase.setInitialBalance(new BigDecimal("0.00"));
+			beltPurchase.setLastUpdatedBy("Kevin Bowersox");
+			beltPurchase.setLastUpdatedDate(new Date());
+			beltPurchase.setNotes("New Dress Belt");
+			beltPurchase.setTransactionType("Debit");
+			beltPurchase.setAccount(account);
 			
-			user.getAddress().add(address);
-			user.getAddress().add(address1);
-			session.save(user);
+			shoePurchase.setTitle("Work Shoes");
+			shoePurchase.setAmount(new BigDecimal("100.00"));
+			shoePurchase.setClosingBalance(new BigDecimal("0.00"));
+			shoePurchase.setCreatedBy("Kevin Bowersox");
+			shoePurchase.setCreatedDate(new Date());
+			shoePurchase.setInitialBalance(new BigDecimal("0.00"));
+			shoePurchase.setLastUpdatedBy("Kevin Bowersox");
+			shoePurchase.setLastUpdatedDate(new Date());
+			shoePurchase.setNotes("Nice Pair of Shoes");
+			shoePurchase.setTransactionType("Debit");
+			shoePurchase.setAccount(account);
+			
+			account.getTransactions().add(shoePurchase);
+			account.getTransactions().add(beltPurchase);
+			
+			session.save(account);
 			session.getTransaction().commit();
-
+			
+			Transaction transaction =  session.get(Transaction.class,account.getTransactions().get(0).getTransactionId());
+			System.out.println(transaction.getAccount().getName());
 		} catch (HibernateException e) {
 			e.printStackTrace();
 		} finally {

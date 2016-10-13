@@ -1,13 +1,18 @@
 package com.smartify.model.entities;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -32,6 +37,19 @@ public class Bank {
 	
 	private boolean international;
 	
+	private List<String> contacts = new ArrayList<String>();
+	
+	@ElementCollection
+	@CollectionTable(name = "bank_contact" , joinColumns = @JoinColumn(name = "bank_id"))
+	@Column(name = "name")
+	public List<String> getContacts() {
+		return contacts;
+	}
+
+	public void setContacts(List<String> contacts) {
+		this.contacts = contacts;
+	}
+
 	@Column(name = "is_international")
 	public boolean isInternational() {
 		return international;

@@ -40,7 +40,7 @@ public class Application {
 	private static Date getBirthday() {
 		Calendar calender = Calendar.getInstance();
 		calender.set(Calendar.YEAR, 1993);
-		calender.set(Calendar.MONTH, 4);
+		calender.set(Calendar.MONTH, 3);
 		calender.set(Calendar.DATE, 22);
 		return calender.getTime();
 	}

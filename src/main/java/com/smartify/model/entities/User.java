@@ -4,7 +4,10 @@ import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,7 +27,9 @@ public class User {
 	private String firstName;		//Basic Value Type
 	
 	private String lastname;		//Basic Value Type
-	
+
+	private Address address;
+
 	private Date birthDate;			
 	
 	private String emailAddress;	//Basic Value Type
@@ -40,6 +45,18 @@ public class User {
 	private boolean valid;			//Basic Value Type
 	
 	private int age;				//Basic Value Type
+
+	@Embedded
+	@AttributeOverrides({
+		@AttributeOverride(name = "addressLine1", column = @Column(name = "user_address_line_1")),
+		@AttributeOverride(name = "addressLine2", column = @Column(name = "user_address_line_2"))
+		})
+	public Address getAddress() {
+		return address;
+	}
+	public void setAddress(Address address) {
+		this.address = address;
+	}
 	
 	@Formula("lower(datediff(curdate(), birth_date)/365)")
 	public int getAge() {

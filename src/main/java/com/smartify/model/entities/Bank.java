@@ -1,8 +1,8 @@
 package com.smartify.model.entities;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.MapKeyColumn;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -37,16 +38,17 @@ public class Bank {
 	
 	private boolean international;
 	
-	private List<String> contacts = new ArrayList<String>();
+	private Map<String, String> contacts = new HashMap<>();
 	
 	@ElementCollection
 	@CollectionTable(name = "bank_contact" , joinColumns = @JoinColumn(name = "bank_id"))
-	@Column(name = "name")
-	public List<String> getContacts() {
+	@MapKeyColumn(name = "name")
+	@Column(name = "position_type")
+	public Map<String,String> getContacts() {
 		return contacts;
 	}
 
-	public void setContacts(List<String> contacts) {
+	public void setContacts(Map<String, String> contacts) {
 		this.contacts = contacts;
 	}
 

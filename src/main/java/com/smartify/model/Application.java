@@ -22,8 +22,8 @@ public class Application {
 			bank.setCreatedDate(new Date());
 			bank.setLastUpdatedBy("Sachin");
 			bank.setLastUpdatedDate(new Date());
-			bank.getContacts().add("Sachin Clone 1");
-			bank.getContacts().add("Sachin Clone 2");
+			bank.getContacts().put("Sachin", "CEO");
+			bank.getContacts().put("Sachin2", "Founder");
 			address.setAddressLine1("Sachin road");
 			address.setAddressLine2("Sachin galli");
 			address.setCity("Sachin Nagar");

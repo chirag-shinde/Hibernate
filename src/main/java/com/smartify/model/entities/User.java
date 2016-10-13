@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.Formula;
+
 @Entity
 @Table(name = "finances_user")
 @Access(value = AccessType.PROPERTY)
@@ -37,6 +39,15 @@ public class User {
 	
 	private boolean valid;
 	
+	private int age;
+	
+	@Formula("lower(datediff(curdate(), birth_date)/365)")
+	public int getAge() {
+		return age;
+	}
+	public void setAge(int age) {
+		this.age = age;
+	}
 	@Transient
 	public boolean isValid() {
 		return valid;

@@ -7,6 +7,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
 import com.smartify.model.entities.Account;
+import com.smartify.model.entities.Budget;
 import com.smartify.model.entities.Transaction;
 
 public class Application {
@@ -57,7 +58,14 @@ public class Application {
 			account.getTransactions().add(shoePurchase);
 			account.getTransactions().add(beltPurchase);
 			
-			session.save(account);
+			Budget budget = new Budget();
+			budget.getTransactions().add(shoePurchase);
+			budget.getTransactions().add(beltPurchase);
+			budget.setGoalAmount(new BigDecimal("1000.00"));
+			budget.setName("MyBudget");
+			budget.setPeriod("Yearly");
+			
+			session.save(budget);
 			session.getTransaction().commit();
 			
 			Transaction transaction =  session.get(Transaction.class,account.getTransactions().get(0).getTransactionId());

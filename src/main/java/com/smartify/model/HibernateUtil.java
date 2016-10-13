@@ -7,6 +7,7 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 import com.smartify.model.entities.Account;
+import com.smartify.model.entities.Budget;
 import com.smartify.model.entities.Transaction;
 
 public class HibernateUtil {
@@ -21,6 +22,7 @@ public class HibernateUtil {
 				sessionFactory = new MetadataSources(standardServiceRegistry)
 										.addAnnotatedClass(Account.class)
 										.addAnnotatedClass(Transaction.class)
+										.addAnnotatedClass(Budget.class)
 										.buildMetadata()
 										.buildSessionFactory();
 			

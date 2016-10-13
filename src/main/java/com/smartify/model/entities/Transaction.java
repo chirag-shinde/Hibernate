@@ -2,6 +2,7 @@ package com.smartify.model.entities;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -142,7 +143,7 @@ public class Transaction {
 		this.createdBy = createdBy;
 	}
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "account_id")
 	public Account getAccount() {
 		return account;

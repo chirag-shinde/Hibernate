@@ -1,17 +1,21 @@
 package com.smartify.model.entities;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
-import javax.persistence.Embedded;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -28,8 +32,8 @@ public class User {
 	
 	private String lastname;		//Basic Value Type
 
-	private Address address;
-
+	private List<Address> address = new ArrayList<>();
+	
 	private Date birthDate;			
 	
 	private String emailAddress;	//Basic Value Type
@@ -46,15 +50,16 @@ public class User {
 	
 	private int age;				//Basic Value Type
 
-	@Embedded
+	@ElementCollection
+	@CollectionTable(name = "user_address" , joinColumns = @JoinColumn(name = "user_id"))
 	@AttributeOverrides({
 		@AttributeOverride(name = "addressLine1", column = @Column(name = "user_address_line_1")),
 		@AttributeOverride(name = "addressLine2", column = @Column(name = "user_address_line_2"))
 		})
-	public Address getAddress() {
+	public List<Address> getAddress() {
 		return address;
 	}
-	public void setAddress(Address address) {
+	public void setAddress(List<Address> address) {
 		this.address = address;
 	}
 	

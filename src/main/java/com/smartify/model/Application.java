@@ -1,12 +1,12 @@
 package com.smartify.model;
 
-import java.util.Calendar;
 import java.util.Date;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
-import com.smartify.model.entities.User;
+import com.smartify.model.entities.Address;
+import com.smartify.model.entities.Bank;
 
 public class Application {
 	public static void main(String[] args) {
@@ -14,34 +14,27 @@ public class Application {
 
 			session.beginTransaction();
 
-			User user = new User();
-			user.setBirthDate(getBirthday());
-			user.setCreatedBy("John Doe");
-			user.setCreatedDate(new Date());
-			user.setEmailAddress("chirag@shinde.com");
-			user.setFirstName("Chirag");
-			user.setLastname("Shinde");
-			user.setLastUpdatedBy("John");
-			user.setLastUpdatedDate(new Date());
-
-			session.save(user);
+			Bank bank = new Bank();
+			Address address = new Address();
+			bank.setName("Sachin Bank");
+			address.setAddressLine1("Sachin road");
+			address.setAddressLine2("Sachin galli");
+			address.setCity("Sachin Nagar");
+			address.setState("SP");
+			address.setZipCode("12345");
+			bank.setCreatedBy("Sachin");
+			bank.setCreatedDate(new Date());
+			bank.setLastUpdatedBy("Sachin");
+			bank.setLastUpdatedDate(new Date());
+			bank.setInternational(true);
+			bank.setAddress(address);
+			session.save(bank);
 			session.getTransaction().commit();
 
-			session.refresh(user);
-
-			System.out.println(user.getAge());
 		} catch (HibernateException e) {
 			e.printStackTrace();
 		} finally {
 			HibernateUtil.getSessionfactory().close();
 		}
-	}
-
-	private static Date getBirthday() {
-		Calendar calender = Calendar.getInstance();
-		calender.set(Calendar.YEAR, 1993);
-		calender.set(Calendar.MONTH, 3);
-		calender.set(Calendar.DATE, 22);
-		return calender.getTime();
 	}
 }

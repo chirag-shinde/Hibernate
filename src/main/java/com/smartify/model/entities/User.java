@@ -19,27 +19,27 @@ import org.hibernate.annotations.Formula;
 @Access(value = AccessType.PROPERTY)
 public class User {
 	
-	private Long userID;
+	private Long userID;			//Basic Value Type
 	
-	private String firstName;
+	private String firstName;		//Basic Value Type
 	
-	private String lastname;
+	private String lastname;		//Basic Value Type
 	
-	private Date birthDate;
+	private Date birthDate;			
 	
-	private String emailAddress;
+	private String emailAddress;	//Basic Value Type
 	
-	private Date lastUpdatedDate;
+	private Date lastUpdatedDate;	
 	
-	private String lastUpdatedBy;
+	private String lastUpdatedBy; 	//Basic Value Type
 	
-	private Date createdDate;
+	private Date createdDate;		
 	
-	private String createdBy;
+	private String createdBy;		//Basic Value Type
 	
-	private boolean valid;
+	private boolean valid;			//Basic Value Type
 	
-	private int age;
+	private int age;				//Basic Value Type
 	
 	@Formula("lower(datediff(curdate(), birth_date)/365)")
 	public int getAge() {

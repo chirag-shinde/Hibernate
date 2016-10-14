@@ -3,7 +3,9 @@ package com.smartify.model.entities;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,6 +13,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -40,6 +45,8 @@ public class Account {
 
 	private String createdBy;
 	
+	private Set<User> users = new HashSet<>();
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name ="account_id")
@@ -142,5 +149,42 @@ public class Account {
 	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
 	}
+	
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(
+			name = "user_account",
+			joinColumns = @JoinColumn(name = "account_id"),
+			inverseJoinColumns = @JoinColumn(name = "user_id")
+			)
+	public Set<User> getUsers() {
+		return users;
+	}
 
+	public void setUsers(Set<User> users) {
+		this.users = users;
+	}
+	
+	public Account() {
+		
+	}
+
+	public Account(String name, List<Transaction> transactions, BigDecimal initialBalance, BigDecimal currentBalance,
+			Date openDate, Date closeDate, Date lastUpdatedDate, String lastUpdatedBy, Date createdDate,
+			String createdBy, Set<User> users) {
+		super();
+		this.name = name;
+		this.transactions = transactions;
+		this.initialBalance = initialBalance;
+		this.currentBalance = currentBalance;
+		this.openDate = openDate;
+		this.closeDate = closeDate;
+		this.lastUpdatedDate = lastUpdatedDate;
+		this.lastUpdatedBy = lastUpdatedBy;
+		this.createdDate = createdDate;
+		this.createdBy = createdBy;
+		this.users = users;
+	}
+	
+	
+	
 }

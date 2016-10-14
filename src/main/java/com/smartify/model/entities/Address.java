@@ -63,5 +63,21 @@ public class Address {
 	public void setZipCode(String zipCode) {
 		this.zipCode = zipCode;
 	}
+
+	public Address(String addressLine1, String addressLine2, String city, String state, String zipCode) {
+		
+		this.addressLine1 = addressLine1;
+		this.addressLine2 = addressLine2;
+		this.city = city;
+		this.state = state;
+		this.zipCode = zipCode;
+	}
+
+	@Override
+	public String toString() {
+		return "Address [addressLine1=" + addressLine1 + ", addressLine2=" + addressLine2 + ", city=" + city
+				+ ", state=" + state + ", zipCode=" + zipCode + "]";
+	}
+	
 	
 }

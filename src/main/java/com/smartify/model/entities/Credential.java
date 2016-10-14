@@ -60,4 +60,17 @@ public class Credential {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+	
+
+	public Credential() {
+			}
+
+	public Credential(User user, String username, String password) {
+		
+		this.user = user;
+		this.username = username;
+		this.password = password;
+	}
+	
 }

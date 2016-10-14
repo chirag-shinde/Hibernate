@@ -153,4 +153,29 @@ public class Transaction {
 		this.account = account;
 	}
 	
+	
+
+	public Transaction() {
+		
+	}
+
+	public Transaction(String transactionType, String title, BigDecimal amount, BigDecimal initialBalance,
+			BigDecimal closingBalance, String notes, Date lastUpdatedDate, String lastUpdatedBy, Date createdDate,
+			String createdBy, Account account) {
+		super();
+		this.transactionType = transactionType;
+		this.title = title;
+		this.amount = amount;
+		this.initialBalance = initialBalance;
+		this.closingBalance = closingBalance;
+		this.notes = notes;
+		this.lastUpdatedDate = lastUpdatedDate;
+		this.lastUpdatedBy = lastUpdatedBy;
+		this.createdDate = createdDate;
+		this.createdBy = createdBy;
+		this.account = account;
+	}
+	
+	
+	
 }

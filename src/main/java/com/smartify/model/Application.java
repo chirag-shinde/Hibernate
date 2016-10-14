@@ -1,14 +1,20 @@
 package com.smartify.model;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
 import com.smartify.model.entities.Account;
-import com.smartify.model.entities.Budget;
+import com.smartify.model.entities.Address;
+import com.smartify.model.entities.Credential;
 import com.smartify.model.entities.Transaction;
+import com.smartify.model.entities.User;
 
 public class Application {
 	public static void main(String[] args) {
@@ -16,60 +22,64 @@ public class Application {
 
 			session.beginTransaction();
 			
-			Transaction beltPurchase = new Transaction();
-			Transaction shoePurchase = new Transaction();
+			Address addressAkshay = new Address("AddLine1", "AddLine2", "City", "NY", "1231");
+			Address addressAdnan = new Address("AddLine2", "AddLine3", "City1", "TY", "2231");
+			Address addressAkshay2 = new Address("AddLine4", "AddLine5", "City2", "YY", "6232");
+			Address addressAdnan2 = new Address("AddLine5", "AddLine1", "City3", "CY", "1731");
+			
+			List<Address> akAdd = new ArrayList<>();
+			akAdd.add(addressAdnan);
+			akAdd.add(addressAdnan2);
+			
+			List<Address> adAdd = new ArrayList<>();
+			adAdd.add(addressAkshay);
+			adAdd.add(addressAkshay2);
 			
 			
-			Account account = new Account();
-			account.setCloseDate(new Date());
-			account.setOpenDate(new Date());
-			account.setCreatedBy("Kevin Bowersox");
-			account.setInitialBalance(new BigDecimal("50.00"));
-			account.setName("Savings Account");
-			account.setCurrentBalance(new BigDecimal("100.00"));
-			account.setLastUpdatedBy("Kevin Bowersox");
-			account.setLastUpdatedDate(new Date());
-			account.setCreatedDate(new Date());
+			User Akshay = new User("Akshay", "Kumar", adAdd, null, new Date(), "AkshayEmail", new Date(), "Akshay", new Date(), "Akshay", true, 22);
+			User Adnan = new User("Adnan", "Sami", akAdd, null, new Date(), "emailBro", new Date(), "Adnan", new Date(), "Adnan", true, 22);
 			
-			beltPurchase.setTitle("Dress Belt");
-			beltPurchase.setAmount(new BigDecimal("50.00"));
-			beltPurchase.setClosingBalance(new BigDecimal("0.00"));
-			beltPurchase.setCreatedBy("Kevin Bowersox");
-			beltPurchase.setCreatedDate(new Date());
-			beltPurchase.setInitialBalance(new BigDecimal("0.00"));
-			beltPurchase.setLastUpdatedBy("Kevin Bowersox");
-			beltPurchase.setLastUpdatedDate(new Date());
-			beltPurchase.setNotes("New Dress Belt");
-			beltPurchase.setTransactionType("Debit");
-			beltPurchase.setAccount(account);
 			
-			shoePurchase.setTitle("Work Shoes");
-			shoePurchase.setAmount(new BigDecimal("100.00"));
-			shoePurchase.setClosingBalance(new BigDecimal("0.00"));
-			shoePurchase.setCreatedBy("Kevin Bowersox");
-			shoePurchase.setCreatedDate(new Date());
-			shoePurchase.setInitialBalance(new BigDecimal("0.00"));
-			shoePurchase.setLastUpdatedBy("Kevin Bowersox");
-			shoePurchase.setLastUpdatedDate(new Date());
-			shoePurchase.setNotes("Nice Pair of Shoes");
-			shoePurchase.setTransactionType("Debit");
-			shoePurchase.setAccount(account);
+			Credential akshayCred = new Credential(Akshay, "akshay", "12334");
+			Credential adnanCred = new Credential(Adnan, "adnan", "12354");
 			
-			account.getTransactions().add(shoePurchase);
-			account.getTransactions().add(beltPurchase);
+			Akshay.setCredential(akshayCred);
+			Adnan.setCredential(adnanCred);
 			
-			Budget budget = new Budget();
-			budget.getTransactions().add(shoePurchase);
-			budget.getTransactions().add(beltPurchase);
-			budget.setGoalAmount(new BigDecimal("1000.00"));
-			budget.setName("MyBudget");
-			budget.setPeriod("Yearly");
+			Set<User> users = new HashSet<>();
+			users.add(Adnan);
+			users.add(Akshay);
 			
-			session.save(budget);
+			
+			
+			
+			Account savingsAcc = new Account("SavingsAcc", null, new BigDecimal("100"), new BigDecimal("10"), new Date(), new Date(), new Date(), "Sachin", new Date(), "Sachin", users);
+			Account currentAcc = new Account("CurrentAcc", null, new BigDecimal("1000"), new BigDecimal("300"), new Date(), new Date(), new Date(), "Rahul", new Date(), "Rahul", users);
+			Transaction belt = new Transaction("IDk", "BeltPurchase", new BigDecimal("100"), new BigDecimal("10"), new BigDecimal("10"), "None", new Date(), "Adnan", new Date(), "Adnan", currentAcc);
+			Transaction wallet = new Transaction("IDk1", "Wallet Purchase", new BigDecimal("200"), new BigDecimal("20"), new BigDecimal("20"), "NoneAgain", new Date(), "Akshay", new Date(), "Akshay", savingsAcc);
+			List<Transaction> transaction = new ArrayList<>();
+			transaction.add(wallet);
+			transaction.add(belt);
+			Akshay.getAccounts().add(currentAcc);
+			Akshay.getAccounts().add(savingsAcc);
+			Adnan.getAccounts().add(currentAcc);
+			Adnan.getAccounts().add(savingsAcc);
+			savingsAcc.setTransactions(transaction);
+			currentAcc.setTransactions(transaction);
+			
+			savingsAcc.getUsers().add(Adnan);
+			savingsAcc.getUsers().add(Akshay);
+			
+			currentAcc.getUsers().add(Adnan);
+			currentAcc.getUsers().add(Akshay);
+			
+			
+			session.save(Akshay);
+			session.save(Adnan);
+			
 			session.getTransaction().commit();
+
 			
-			Transaction transaction =  session.get(Transaction.class,account.getTransactions().get(0).getTransactionId());
-			System.out.println(transaction.getAccount().getName());
 		} catch (HibernateException e) {
 			e.printStackTrace();
 		} finally {

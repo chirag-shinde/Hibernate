@@ -2,12 +2,15 @@ package com.smartify.model.entities;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -16,6 +19,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -33,7 +37,7 @@ public class User {
 	
 	private String lastname;		//Basic Value Type
 
-	private List<Address> address = new ArrayList<>();
+	private List<Address> address = new ArrayList<Address>();
 	
 	private Credential credential;
 	
@@ -52,7 +56,9 @@ public class User {
 	private boolean valid;			//Basic Value Type
 	
 	private int age;				//Basic Value Type
-
+	
+	private Set<Account> accounts = new HashSet<>(); 
+	
 	@ElementCollection
 	@CollectionTable(name = "user_address" , joinColumns = @JoinColumn(name = "user_id"))
 	@AttributeOverrides({
@@ -154,12 +160,42 @@ public class User {
 		this.createdBy = createdBy;
 	}
 	
-	@OneToOne(mappedBy = "user")
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
 	public Credential getCredential() {
 		return credential;
 	}
 	public void setCredential(Credential credential) {
 		this.credential = credential;
 	}
+	
+	@ManyToMany(cascade = CascadeType.ALL , mappedBy ="users")
+	public Set<Account> getAccounts() {
+		return accounts;
+	}
+	public void setAccounts(Set<Account> accounts) {
+		this.accounts = accounts;
+	}
+	public User() {
+		
+	}
+	public User(String firstName, String lastname, List<Address> address, Credential credential, Date birthDate,
+			String emailAddress, Date lastUpdatedDate, String lastUpdatedBy, Date createdDate, String createdBy,
+			boolean valid, int age) {
+		
+		this.firstName = firstName;
+		this.lastname = lastname;
+		this.address = address;
+		this.credential = credential;
+		this.birthDate = birthDate;
+		this.emailAddress = emailAddress;
+		this.lastUpdatedDate = lastUpdatedDate;
+		this.lastUpdatedBy = lastUpdatedBy;
+		this.createdDate = createdDate;
+		this.createdBy = createdBy;
+		this.valid = valid;
+		this.age = age;
+
+	}
+	
 	
 }
